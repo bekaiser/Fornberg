@@ -78,9 +78,7 @@ x = collect(0.5*dx:dx:dx*N)-(Lx/2.0-Lxcenter) # km, centered uniform grid
 # signal
 
 k = 2.0*pi/(Lx/5.0)
-#s = Array(Float64,1,N)
 s = sin(x.*k)
-#@show(size(s))
 dsdx = cos(x.*k).*k
 d2sdx2 = -sin(x.*k).*k^2
 
@@ -105,3 +103,10 @@ for j = 3:N-2
         dsF[j,1] = vecdot(c[m+1,:],s[jm2:jp2]);
 end
 error = abs(dsdx-dsF)
+
+@show(N)
+figure(2)
+semilogy(x[3:N-2],error[3:N-2],"k")
+xlabel("x")
+title("Lagrange polynomial 1st derivative error")
+show()
